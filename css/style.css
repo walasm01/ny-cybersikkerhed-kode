@@ -23,8 +23,11 @@ body {
 }
 .text-group p {
   color: #34FF6D;
-  font-size: 20px;
+  font-size: 18px;
   font-family: "Pixelify Sans", sans-serif;
+}
+.text-group img {
+  max-width: 20rem;
 }
 
 .btn-group {
@@ -42,4 +45,8 @@ body {
   border: 2px solid #fff;
   color: #fff;
   font-family: "Pixelify Sans", sans-serif;
+}
+
+.hidden {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
