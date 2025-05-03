@@ -22,7 +22,12 @@ body {
         font-family: 'Pixelify Sans', sans-serif;
     }
 
-    p {
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    p, li {
         color: #34FF6D;
         font-size: 18px;
         font-family: 'Pixelify Sans', sans-serif;

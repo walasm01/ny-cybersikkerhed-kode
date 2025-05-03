@@ -21,7 +21,11 @@ body {
   font-size: 40px;
   font-family: "Pixelify Sans", sans-serif;
 }
-.text-group p {
+.text-group ul {
+  list-style-type: none;
+  padding: 0;
+}
+.text-group p, .text-group li {
   color: #34FF6D;
   font-size: 18px;
   font-family: "Pixelify Sans", sans-serif;
