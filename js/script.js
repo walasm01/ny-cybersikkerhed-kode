@@ -3,11 +3,13 @@
 const startingSlide = document.querySelector('#starting-slide');
 const endingSlide = document.querySelector('#ending-slide');
 const endingText = document.querySelector('#ending-slide p');
+const endingH1 = document.querySelector('#ending-slide h1');
 
 const btns = document.querySelectorAll('.btn-group button');
 const btns1 = document.querySelectorAll('#btns1 button');
 const btns2 = document.querySelectorAll('#btns2 button');
 const btns3 = document.querySelectorAll('#btns3 button');
+const btns4 = document.querySelectorAll('#btns4 button');
 
 const scenario1 = document.querySelector('#scenario1');
 const scenario2 = document.querySelector('#scenario2');
@@ -19,6 +21,7 @@ const feedbackText = document.querySelector('#feedback-slide p');
 
 let correctClick = 0;
 let wrongClick = 0;
+let linkClick = 0;
 let ending = 0;
 
 // Når knapperne trykkes, kaldes funktionen "start"
@@ -41,7 +44,18 @@ function start (e) {
 
 // Funktionen for 1. scenarie. Inde i denne funktion har vi funktionerne for udfaldene også. Dette giver et bedre overblik over koden.
 function funcScenario1 (e) {
-    if (e.target == btns1[0] && correctClick >= 1) {
+    if (e.target == btns1[0] && linkClick >= 1) {
+        console.log('Du har trykket på et uopfordret link');
+        scenario1.classList.add('hidden');
+        feedbackSlide.classList.remove('hidden');
+        feedbackText.innerText = 'Du klikkede på et farligt link. Selvom du ikke har videregivet dine oplysninger, burde du som hovedregel aldrig klikke på uopfordrede links!\n\n MobilePay ville aldrig sende dig en besked med et link for at bekræfte dine oplysninger.\n\n Hvis du kigger på URL\'en, er det også tydeligt, at det ikke er MobilePays hjemmeside.';
+        feedbackText.style.color = '#FFE17E';
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', funcS3Udfald1);
+        });
+
+    } else if (e.target == btns1[0] && correctClick >= 1) {
         console.log('Du har ignoreret beskeden efter tjek på mobilepay-appen');
         scenario1.classList.add('hidden');
         feedbackSlide.classList.remove('hidden');
@@ -51,7 +65,6 @@ function funcScenario1 (e) {
         btns.forEach(btn => {
             btn.addEventListener('click', funcS1Udfald2continued);
         });
-
     } else if (e.target == btns1[0] && correctClick == 0) {
         console.log('første valg for 1. scenarie');
         scenario1.classList.add('hidden');
@@ -78,6 +91,7 @@ function funcScenario1 (e) {
         console.log('tredje valg for 1. scenarie');
         scenario1.classList.add('hidden');
         scenario3.classList.remove('hidden');
+        linkClick++;
 
         btns3.forEach(btn => {
             btn.addEventListener('click', funcScenario3);
@@ -208,11 +222,44 @@ function funcScenario2 (e) {
 function funcScenario3 (e) {
     if (e.target == btns3[0]) {
         console.log('jeg går ud af linket');
+        scenario3.classList.add('hidden');
+        scenario1.classList.remove('hidden');
+        btns1[1].classList.add('hidden');
+        btns1[2].classList.add('hidden');
+
+        btns1.forEach(btn => {
+            btn.addEventListener('click', funcScenario1);
+        });
+
     } else if (e.target == btns3[1]) {
         console.log('Jeg indtaster oplysningerne');
+        scenario3.classList.add('hidden');
+        endingSlide.classList.remove('hidden');
+        endingH1.innerText = 'GAME OVER'
+        endingText.innerText = 'Beskeden var ikke sendt fra MobilePay... Beskeden var et forsøg på phishing.\n\n Dine oplysninger er nu blevet stjålet, og du er nu sårbar overfor tyveri af dine penge og identitetstyveri.\n\n Du burde aldrig klikke på uopfordrede links!'
+        endingText.style.color = '#FE2828';
+        endingH1.style.color = '#FE2828';
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', funcEnding);
+        })
     };
 };
 
+function funcS3Udfald1 (e) {
+    if (e.target.id == 'continue-btn') {
+        feedbackSlide.classList.add('hidden');
+        scenario4.classList.remove('hidden');
+
+        btns4.forEach(btn => {
+            btn.addEventListener('click', funcScenario4);
+        });
+    };
+};
+
+function funcScenario4 () {
+    
+}
 
 function funcEnding (e) {
     if (e.target.id == 'again-btn') {
